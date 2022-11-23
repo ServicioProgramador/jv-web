@@ -1,6 +1,8 @@
-import Product from './components/Product';
+// import Product from './components/Product';
 import Navbar from './components/Navbar';
 import './App.css';
+import Products from './components/Products';
+
 
 function App() {
   return (
@@ -8,8 +10,9 @@ function App() {
       {/* <img src={logo} className="App-logo" alt="logo" /> */}
         
         <h1>JOTAVEEEEE</h1>
-        <Product />
         <Navbar />
+        <Products />
+        {/* <Product /> */}
     </div>
   );
 }

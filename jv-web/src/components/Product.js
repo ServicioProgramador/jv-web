@@ -10,47 +10,44 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import accounting from "accounting"
-import bike from "../components/assets/Bike Rodado 29 Lamborghini.png"
 import { AddShoppingCart } from '@mui/icons-material'
 
-
-
 const useStyles = styled((theme) => ({
-    root: {
-      maxWidth: 345,
-    },
-    action: {
-      marginTop: "1rem",
-      fontSize: "18px",
-    },
-    media:  {
-      height: 0,
-      paddingTop: "56.25%", //16:9
-    },
-    expand: {
-      transform: "rotate(0deg)",
-      marginLeft: "auto",
-      transition: theme.transitions.create("transform", {
-        duration: theme.transitions.duration.shortest,
-      }),
-    },
-      expandOpend: {
-        transform: "rotate(180deg)",
-      },
+  root: {
+    maxWidth: 345,
+  },
+  action: {
+    marginTop: "1rem",
+    fontSize: "18px",
+  },
+  media: {
+    height: 0,
+    paddingTop: "56.25%", //16:9
+  },
+  expand: {
+    transform: "rotate(0deg)",
+    marginLeft: "auto",
+    transition: theme.transitions.create("transform", {
+      duration: theme.transitions.duration.shortest,
+    }),
+  },
+  expandOpend: {
+    transform: "rotate(180deg)",
+  },
 }));
 
- const ExpandMore = styled((props) => {
-   const { expand, ...other } = props;
-   return <IconButton {...other} />;
- })(({ theme, expand }) => ({
-   transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-   marginLeft: 'auto',
-   transition: theme.transitions.create('transform', {
-     duration: theme.transitions.duration.shortest,
-   }),
- }));
+const ExpandMore = styled((props) => {
+  const { expand, ...other } = props;
+  return <IconButton {...other} />;
+})(({ theme, expand }) => ({
+  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+  marginLeft: 'auto',
+  transition: theme.transitions.create('transform', {
+    duration: theme.transitions.duration.shortest,
+  }),
+}));
 
-export default function Product() {
+export default function Product({ product: {id, name, productType, image, price, rating, description } }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -60,45 +57,47 @@ export default function Product() {
 
   return (
     <Card sx={{ maxWidth: 345 }}>
+      {/* sx={{ maxWidth: 345 }} */}
       <CardHeader
         action={
           <Typography
-             className={classes.action}
-            variant='h5'
+            className={classes.action}
+            variant='h1'
             color="textSecondary"
-            paddingTop={25}
+            paddingTop={15}
             fontSize={25}
-            >
-            
-              {accounting.formatMoney(50)}
+          >
+            {accounting.formatMoney(price)}
           </Typography>
-          
         }
-        title="Bike Rodado 29 Lamborghini XX"
+        title={name}
         subheader="STOCK DISPONIBLE"
       />
       <CardMedia
+        className={classes.media}
+        image={image}
         component="img"
-        height="194"
-        image={bike}
-        alt="BikeLamborghini"
+        height="200"
+        xs={12}
+        sm={6}
+        md={4}
+        lg={3}
       />
-      {/* <img src={bike} /> */}
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
-        Bike Rodado 29 Lamborghini
-          {/* {productType} */}
+        <Typography variant="body2" color="text.secondary" component='p'>
+          {/* Bike Rodado 29 Lamborghini */}
+          {productType}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="Add to Cart">
           <AddShoppingCart fontSize='large' />
         </IconButton>
-        {Array(3)
+        {Array(rating)
           .fill()
           .map((_, i) => (
-          <p>&#11088;</p>
-        ))}
+            <p>&#11088;</p>
+          ))}
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
@@ -112,15 +111,7 @@ export default function Product() {
         <CardContent>
           <Typography paragraph>Caracteristicas:</Typography>
           <Typography paragraph>
-          •Rodado: 29 
-          •Material del Cuadro : Aluminio 
-          •Talle: 17-19-21 
-          •Cambios: Shimano de 21 velocidades 
-          •Frenos: Disco Mecánico 
-          •Llantas Doble Pared: Aluminio de 36 agujeros 
-          •Cubiertas: Wanda 29 x 2.1 mm 
-          •Camara: Valvula de auto 
-          {/* {description} */}
+            {description}
           </Typography>
         </CardContent>
       </Collapse>
